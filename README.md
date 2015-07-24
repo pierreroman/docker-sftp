@@ -3,7 +3,7 @@ SFTP Server
 
 # Running
 
-Just use this command to start the container. Unbound will listen on port 53/udp.
+Just use this command to start the container.
 
 ```docker run --name sftp -v <host>:/data/incoming -d -P writl/sftp```
 
