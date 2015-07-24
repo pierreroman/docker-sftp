@@ -1,21 +1,16 @@
-# luzifer/sftp-share Dockerfile
+SFTP Server
+===========
 
-This repository contains **Dockerfile** of sftp-share for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/luzifer/sftp-share/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
+# Running
 
-## Base Docker Image
+Just use this command to start the container. Unbound will listen on port 53/udp.
 
-- [ubuntu](https://registry.hub.docker.com/_/ubuntu/)
+```docker run --name sftp -d -P writl/sftp```
 
-## Installation
+# Configuration
+These options can be set:
 
-1. Install [Docker](https://www.docker.com/).
-
-2. Download [automated build](https://registry.hub.docker.com/u/luzifer/sftp-share/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull luzifer/sftp-share`
-
-## Usage
-
-To launch it and have your share listen on port 2022, just type:
-
-```
-docker run -d -p 2022:22 -e USER=myuser -e PASS=myverysecretpassword luzifer/sftp-share
-```
+- **USER**: Sets the username. (Default: "sftp", Possible Values: "<string>")
+- **PASS**: Sets the password of the User (Default: "c83eDteUDT", Possible Values: "<string>")
+- **GROUP_ID**: Sets GID of the user (Default: "1000", Possible Values: "<integer>")
+- **USER_ID**: Sets UID of the user (Default: "1000", Possible Values: "<integer>")
