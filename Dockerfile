@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
 	mcrypt \
 	&& mkdir /var/run/sshd \
 	&& chmod 0755 /var/run/sshd \
-	&& mkdir -p /data/incoming
+	&& mkdir -p /data/incoming \
+	&& apt-get clean
 
 ADD start.sh /usr/local/bin/start.sh
 ADD sshd_config /etc/ssh/sshd_config
