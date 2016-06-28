@@ -1,6 +1,6 @@
 SFTP Server
 ===========
-[![](https://badge.imagelayers.io/writl/sftp:latest.svg)](https://imagelayers.io/?images=writl/sftp:latest 'Get your own badge on imagelayers.io')
+
 
 # Running
 
