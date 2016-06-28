@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
 	&& chmod 0755 /var/run/sshd \
 	&& mkdir -p /data/incoming \
 	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+	&& mkdir /ssh/
 
 ADD start.sh /usr/local/bin/start.sh
 ADD sshd_config /etc/ssh/sshd_config
