@@ -32,6 +32,12 @@ else
     usermod -aG sftp-only ${USER}
 
     chown ${USER_ID}:${GROUP_ID} /data/incoming
+
+    if (  ! -e /data/.ssh/authorized_keys && ! -z "$PUBKEY" ); then
+        mkdir /data/.ssh
+        touch /data/.ssh/authorized_keys
+        echo ${PUBKEY} >> /data/.ssh/authorized_keys
+    fi
 fi
 
 exec /usr/sbin/sshd -D -e
