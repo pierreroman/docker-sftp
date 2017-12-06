@@ -21,16 +21,25 @@ export AZURE_STORAGE_CONNECTION_STRING=`az storage account show-connection-strin
 # Create the file share
 az storage share create -n $ACI_SHARE_NAME
 
+# Retreive storage account key
+
+STORAGE_ACCOUNT=$(az storage account list --resource-group $ACI_RESOURCE_GROUP --query "[?contains(name,'$ACI_PERS_STORAGE_ACCOUNT_NAME')].[name]" -o tsv)
+echo $STORAGE_ACCOUNT
+
+STORAGE_KEY=$(az storage account keys list -g $ACI_RESOURCE_GROUP -n $STORAGE_ACCOUNT --query "[0].value" -o tsv)
+echo $STORAGE_KEY
+
 # Deploy container 
 
-az container create \
-    --resource-group $ACI_RESOURCE_GROUP \
-    --name SFTP \
-    --image pierreroman/sftp-azr \
+az container create -g $ACI_RESOURCE_GROUP \
+    -n sftp \
+    --os-type Linux \
+    --image sftp-azr \
     --ip-address Public \
-    --ports 22 \
+    --port 22 \
     --azure-file-volume-account-name $ACI_STORAGE_ACCOUNT_NAME \
     --azure-file-volume-account-key $STORAGE_KEY \
     --azure-file-volume-share-name $ACI_SHARE_NAME \
-    --azure-file-volume-mount-path /data/incoming \
-    --environment-variables USER="sftpuser" PASS="P@ssw0rd123"
+    --azure-file-volume-mount-path /data/incoming
+
+#    --environment-variables USER="sftpuser" PASS="P@ssw0rd123"
