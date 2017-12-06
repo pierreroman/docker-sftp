@@ -2,10 +2,10 @@
 #!/bin/bash
 
 # Change these four parameters as needed
-ACI_STORAGE_ACCOUNT_NAME=mystorageaccount$RANDOM
+ACI_STORAGE_ACCOUNT_NAME=sftpstorage$RANDOM
 ACI_RESOURCE_GROUP=RG-SFTP
 ACI_LOCATION=eastus
-ACI_SHARE_NAME=acishare
+ACI_SHARE_NAME=sftpshare
 
 # Create resource group
 az group create -l $ACI_LOCATION -n $ACI_RESOURCE_GROUP
@@ -24,12 +24,13 @@ az storage share create -n $ACI_SHARE_NAME
 # Deploy container 
 
 az container create \
-    --resource-group $ACI_PERS_RESOURCE_GROUP \
-    --name hellofiles \
-    --image writl/sftp \
+    --resource-group $ACI_RESOURCE_GROUP \
+    --name SFTP \
+    --image pierreroman/sftp-azr \
     --ip-address Public \
     --ports 22 \
-    --azure-file-volume-account-name $ACI_PERS_STORAGE_ACCOUNT_NAME \
+    --azure-file-volume-account-name $ACI_STORAGE_ACCOUNT_NAME \
     --azure-file-volume-account-key $STORAGE_KEY \
-    --azure-file-volume-share-name $ACI_PERS_SHARE_NAME \
-    --azure-file-volume-mount-path /data/incoming
+    --azure-file-volume-share-name $ACI_SHARE_NAME \
+    --azure-file-volume-mount-path /data/incoming \
+    --environment-variables USER="sftpuser" PASS="P@ssw0rd123"
