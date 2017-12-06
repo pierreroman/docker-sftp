@@ -40,6 +40,5 @@ az container create -g $ACI_RESOURCE_GROUP \
     --azure-file-volume-account-name $ACI_STORAGE_ACCOUNT_NAME \
     --azure-file-volume-account-key $STORAGE_KEY \
     --azure-file-volume-share-name $ACI_SHARE_NAME \
-    --azure-file-volume-mount-path /data/incoming
-
-#    --environment-variables USER="sftpuser" PASS="P@ssw0rd123"
+    --azure-file-volume-mount-path /data/incoming \
+    --environment-variables USER="sftpuser" PASS="P@ssw0rd123"
