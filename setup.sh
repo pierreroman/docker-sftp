@@ -6,6 +6,7 @@ ACI_STORAGE_ACCOUNT_NAME=sftpstorage$RANDOM
 ACI_RESOURCE_GROUP=RG-SFTP
 ACI_LOCATION=eastus
 ACI_SHARE_NAME=sftpshare
+ACI_CONTAINER_NAME=sftpcontainer
 
 # Create resource group
 az group create -l $ACI_LOCATION -n $ACI_RESOURCE_GROUP
@@ -32,7 +33,7 @@ echo $STORAGE_KEY
 # Deploy container 
 
 az container create -g $ACI_RESOURCE_GROUP \
-    -n sftp \
+    -n $ACI_CONTAINER_NAME \
     --os-type Linux \
     --image pierreroman/sftp-azr \
     --ip-address Public \
@@ -42,3 +43,7 @@ az container create -g $ACI_RESOURCE_GROUP \
     --azure-file-volume-share-name $ACI_SHARE_NAME \
     --azure-file-volume-mount-path /data/incoming \
     --environment-variables USER="sftpuser" PASS="P@ssw0rd123"
+
+CONTAINER_IP=$(az container show --name $ACI_CONTAINER_NAME  --resource-group $ACI_RESOURCE_GROUP --query ipAddress.ip)
+echo
+echo "the IP address of the container is " $CONTAINER_IP
