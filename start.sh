@@ -1,4 +1,5 @@
 #!/bin/bash
+
 USER=${USER:-sftp}
 USER_ID=${USER_ID:-1000}
 GROUP_ID=${GROUP_ID:-1000}
