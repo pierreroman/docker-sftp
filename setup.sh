@@ -34,7 +34,7 @@ echo $STORAGE_KEY
 az container create -g $ACI_RESOURCE_GROUP \
     -n sftp \
     --os-type Linux \
-    --image sftp-azr \
+    --image pierreroman/sftp-azr \
     --ip-address Public \
     --port 22 \
     --azure-file-volume-account-name $ACI_STORAGE_ACCOUNT_NAME \
